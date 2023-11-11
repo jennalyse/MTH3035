@@ -1,5 +1,5 @@
 # Sandwich data code for linear models
-# sbpmatrix, sbjmatrix, and sbamatrix have already been defined (see Sandwich_tern_matrices)
+# sbpmatrix, sbjmatrix, and sbamatrix have already been defined (see Matrices_sandwich_terns)
 sb_data_list <- lapply(list(sbpmatrix, sbjmatrix, sbamatrix), function(matrix) {
   data.frame(years = rep(1970:1990, each = 21), response = as.vector(matrix))
 })
