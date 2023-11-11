@@ -1,4 +1,4 @@
-# Newton Raphson Method for blackbirds
+# Newton Raphson method for blackbirds
 # Define likelihood function computing matrices ('phia', 'phi1', 'lambda1', 'lambda2') 
 # using logistic function ('expit')
 likelihood_function_matrix <- function(pars_in, Datamatrix) {
