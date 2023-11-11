@@ -69,6 +69,7 @@ pars_fun_ccc <- function ( pars_in ){
   # lambda2 <- matrix ( expit ( pars_in [23]) ,n1 ,n2 , byrow = TRUE ) 
   ringlik ( Datamatrix , phia , phi1 , lambda1 , lambda2 ) 
 } 
+
 ##################################### Likelihood ##################################### 
 nprob <-rep (1 , n1) 
 ringlik <- function ( Datamatrix , phia , phi1 , lambda1 , lambda2 ) 
@@ -94,11 +95,11 @@ ringlik <- function ( Datamatrix , phia , phi1 , lambda1 , lambda2 )
 # pars_in : Starting values for the parameters in the same order : phia , phi1 , lambda1 , lambda2 
 pars_in <- logit ( rep (c (0.6 ,0.5 ,0.01) ,c (20 ,1 ,20) )) 
 pars_fun_ccc ( pars_in ) # gives likelihood for the standard model 
-223
+
 ###################################################################################### 
 #################### 2. Historic Model : birds ringed as full - grown ################### 
 ###################################################################################### 
-###### DATA 227
+###### DATA 
 ###### Datamatrixj : matrix of recoveries for birds ringed as juvenile 
 ###### Datamatrixa : matrix of recoveries for birds ringed as adult 
 Datamatrixj <- matrix (c( 
@@ -168,6 +169,7 @@ pars_fun_cccc <- function (pars_in){
   prop <- matrix ( expit ( pars_in [42]) ,n1 , n2 , byrow = TRUE ) 
   ringlikhist ( Datamatrixj , Datamatrixa , phia , phi1 , lambda1 , lambda2 , prop ) 
 } 
+
 ####### LIKELIHOOD FOR THE HISTORIC MODEL 
 nprob <-rep (1 , n1) 
 ringlikhist <- function ( Datamatrixj , Datamatrixa , phia , phi1 , lambda1 , lambda2 , prop ) 
@@ -191,6 +193,7 @@ ringlikhist <- function ( Datamatrixj , Datamatrixa , phia , phi1 , lambda1 , la
   lik =- lik 
   return ( lik ) 
 } 
+
 # pars_in : Starting values for the parameters in the same order : phia , phi1 , lambda1 , lambda2
 pars_in <- logit ( rep (c(0.6 ,0.5 ,0.01 ,0.3) ,c(20 ,1 ,20 ,1) )) 
 
@@ -219,8 +222,8 @@ logitpars_fit <- optim(par = pars_in , fn = ringlikcomb,
 # The MLE for the other models can be easily obtained by modifying fn in logitpars_fit
 # i.e. MLE for the historic model:
 # logitpars_fit <- optim(par = pars_in, fn = ringlikhist,
-                  # method = "L-BFGS-B", hessian=TRUE,
-                 # control = list(maxit=1000000, trace=6))
+# method = "L-BFGS-B", hessian=TRUE,
+# control = list(maxit=1000000, trace=6))
 
 AIC <- logitpars_fit$value*2+2*length(pars_in) # returns AIC value
 ## Obtain parameter estimates
@@ -233,4 +236,3 @@ se_est <- se*parsest*(1-parsest)
 se_est
 # Check for parameter redundancy
 round(eigen(logitpars_fit$hess)$values/max(eigen(logitpars_fit$hess)$values),5)
-
